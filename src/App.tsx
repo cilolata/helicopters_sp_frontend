@@ -30,7 +30,7 @@ export default function App() {
     <div className="flex h-screen w-screen overflow-hidden">
       <div className="flex-1 relative">
         {error && (
-          <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[1000] bg-red-700/90 text-white text-sm px-4 py-2 rounded-lg">
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 z-1000 bg-red-700/90 text-white text-sm px-4 py-2 rounded-lg">
             {error}
           </div>
         )}
@@ -38,7 +38,7 @@ export default function App() {
         {/* Hamburger button — mobile only */}
         <button
           onClick={() => setSidebarOpen(o => !o)}
-          className="md:hidden absolute top-3 right-3 z-[1000] bg-gray-900/90 text-white p-2.5 rounded-lg shadow-lg"
+          className="md:hidden absolute top-3 right-3 z-1000 bg-gray-900/90 text-white p-2.5 rounded-lg shadow-lg"
           aria-label="Menu"
         >
           {sidebarOpen ? (
@@ -66,13 +66,13 @@ export default function App() {
       {/* Overlay — mobile only, closes sidebar on tap */}
       {sidebarOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black/40 z-[900]"
+          className="md:hidden fixed inset-0 bg-black/40 z-900"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       <div className={`
-        fixed md:static inset-y-0 right-0 z-[950]
+        fixed md:static inset-y-0 right-0 z-950
         transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
       `}>
