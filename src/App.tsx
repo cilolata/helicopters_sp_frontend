@@ -64,12 +64,14 @@ export default function App() {
 
         <Map
           aircrafts={aircrafts}
-          helipads={helipads.filter((_, i) => visibleHelipadIndices.has(i))}
+          helipads={helipads}
+          visibleHelipadIndices={visibleHelipadIndices}
           trackedIcao={trackedIcao}
           trackPath={trackPath}
           historyPath={historyPath}
           onSelect={toggle}
           onDeselect={clear}
+          onToggleHelipad={toggleHelipad}
         />
       </div>
 

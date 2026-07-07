@@ -9,16 +9,18 @@ import { HelipadMarker } from './HelipadMarker'
 import { MapAutoFit, MapTracker, MapClickDeselect } from './MapControls'
 
 interface Props {
-  aircrafts:   Aircraft[]
-  helipads:    Helipad[]
-  trackedIcao: string | null
-  trackPath:   [number, number][]
-  historyPath: [number, number][]
-  onSelect:    (icao: string) => void
-  onDeselect:  () => void
+  aircrafts:             Aircraft[]
+  helipads:              Helipad[]
+  visibleHelipadIndices: Set<number>
+  trackedIcao:           string | null
+  trackPath:             [number, number][]
+  historyPath:           [number, number][]
+  onSelect:              (icao: string) => void
+  onDeselect:            () => void
+  onToggleHelipad:       (idx: number) => void
 }
 
-export function Map({ aircrafts, helipads, trackedIcao, trackPath, historyPath, onSelect, onDeselect }: Props) {
+export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, trackPath, historyPath, onSelect, onDeselect, onToggleHelipad }: Props) {
   return (
     <MapContainer
       center={[-23.5505, -46.6333]}
@@ -44,9 +46,11 @@ export function Map({ aircrafts, helipads, trackedIcao, trackPath, historyPath, 
           <Polyline positions={trackPath} pathOptions={{ color: '#39ff14', weight: 4, opacity: 1 }} />
         </>
       )}
-      {helipads.map((hp, i) => (
-        <HelipadMarker key={i} hp={hp} />
-      ))}
+      {helipads.map((hp, i) =>
+        visibleHelipadIndices.has(i) ? (
+          <HelipadMarker key={i} hp={hp} onHide={() => onToggleHelipad(i)} />
+        ) : null
+      )}
       {aircrafts.map(ac => (
         <AircraftMarker
           key={ac.icao_hex}
