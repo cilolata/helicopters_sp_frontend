@@ -23,13 +23,21 @@ function todayStr() {
 }
 
 export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad }: Props) {
-  const [tab, setTab]       = useState<Tab>('live')
-  const [date, setDate]     = useState(todayStr)
+  const [tab, setTab]         = useState<Tab>('live')
+  const [date, setDate]       = useState(todayStr)
+  const [helipadSearch, setHelipadSearch] = useState('')
 
   const { aircrafts: dateList, loading } = useDateAircrafts(date)
 
   const activeHelipads = helipads.filter(hp => hp.landings > 0).sort((a, b) => b.landings - a.landings)
   const allHelipads    = [...helipads].sort((a, b) => b.pousos_permitidos - a.pousos_permitidos)
+
+  const filteredHelipads = helipadSearch.trim() === ''
+    ? allHelipads
+    : allHelipads.filter(hp =>
+        hp.name.toLowerCase().includes(helipadSearch.toLowerCase()) ||
+        hp.address.toLowerCase().includes(helipadSearch.toLowerCase())
+      )
 
   function fmtTime(iso: string) {
     return new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
@@ -157,14 +165,30 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
             {allHelipads.length === 0 && (
               <li className="px-4 py-8 text-center text-sm text-gray-500">Carregando helipontos...</li>
             )}
-            {allHelipads.map((hp, i) => {
+            {allHelipads.length > 0 && (
+              <li className="px-3 py-2 bg-gray-950 border-b border-white/10 sticky top-0">
+                <input
+                  type="text"
+                  placeholder="Buscar heliponto..."
+                  value={helipadSearch}
+                  onChange={e => setHelipadSearch(e.target.value)}
+                  className="w-full bg-gray-800 text-white text-xs rounded px-2 py-1.5 border border-white/10
+                             focus:outline-none focus:border-green-500 placeholder-gray-600"
+                />
+              </li>
+            )}
+            {filteredHelipads.length === 0 && allHelipads.length > 0 && (
+              <li className="px-4 py-8 text-center text-sm text-gray-500">Nenhum resultado.</li>
+            )}
+            {filteredHelipads.map((hp, i) => {
+              const originalIdx = allHelipads.indexOf(hp)
               const pct        = hp.pousos_permitidos > 0 ? hp.landings / hp.pousos_permitidos : 0
               const barColor   = pct === 0 ? '#4ade80' : pct < 0.7 ? '#facc15' : '#f87171'
-              const isVisible  = visibleHelipadIndices.has(i)
+              const isVisible  = visibleHelipadIndices.has(originalIdx)
               return (
                 <li
                   key={i}
-                  onClick={() => onToggleHelipad(i)}
+                  onClick={() => onToggleHelipad(originalIdx)}
                   className={`px-4 py-3 cursor-pointer transition-colors border-l-2 ${
                     isVisible ? 'bg-green-900/20 border-green-500' : 'border-transparent hover:bg-white/5'
                   }`}
