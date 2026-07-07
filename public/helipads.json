@@ -1,0 +1,786 @@
+[
+  {
+    "name": "Heliponto Condomínio Jatobá",
+    "address": "Rua Surubim 373",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6015159,
+    "lon": -46.6912582
+  },
+  {
+    "name": "Hospital Santa Marcelina",
+    "address": "Rua Santa Marcelina 177",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5543325,
+    "lon": -46.4613033
+  },
+  {
+    "name": "Heliponto VIVICON",
+    "address": "Rua Samaritá 1117",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5109458,
+    "lon": -46.668895
+  },
+  {
+    "name": "Heliponto DMR",
+    "address": "Rua Professor José Lourenço 836",
+    "pousos_permitidos": 25,
+    "landings": 0,
+    "lat": -23.4741742,
+    "lon": -46.7142011
+  },
+  {
+    "name": "Heliponto Privado Blue Tree Towers Faria Lima - SP0764",
+    "address": "Avenida Brigadeiro Faria Lima 4055",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5920639,
+    "lon": -46.6802573
+  },
+  {
+    "name": "Heliponto Ortossintese Indústria e Comércio Ltda",
+    "address": "Rua Professor Affonso José Fioravanti 63",
+    "pousos_permitidos": 1,
+    "landings": 0,
+    "lat": -23.4383238,
+    "lon": -46.7242101
+  },
+  {
+    "name": "Heliponto 9 de Julho",
+    "address": "Rua Peixoto Gomide 671",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5599256,
+    "lon": -46.6557711
+  },
+  {
+    "name": "Heliponto do Hospital Amil Paulistano",
+    "address": "Rua Martiniano de Carvalho 741",
+    "pousos_permitidos": 1,
+    "landings": 0,
+    "lat": -23.5605744,
+    "lon": -46.6413245
+  },
+  {
+    "name": "Heliponto Real e Benemérita Assoc. Portuguesa de Beneficência",
+    "address": "Rua Maestro Cardim 769",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5674997,
+    "lon": -46.6415425
+  },
+  {
+    "name": "Heliponto DJY Yunes- SP 0327",
+    "address": "Rua Lourenço Marques 158",
+    "pousos_permitidos": 5,
+    "landings": 0,
+    "lat": -23.5976694,
+    "lon": -46.6852365
+  },
+  {
+    "name": "Heliponto Hospital Vila Lobos",
+    "address": "Rua Lituânia 260",
+    "pousos_permitidos": 11,
+    "landings": 0,
+    "lat": -23.5632883,
+    "lon": -46.5899753
+  },
+  {
+    "name": "Heliponto New Century",
+    "address": "Rua Leopoldo Couto de Magalhães Jr 758",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5880907,
+    "lon": -46.6802904
+  },
+  {
+    "name": "Heliponto Bertolucci",
+    "address": "Rua Joaquim Floriano 1052",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5859432,
+    "lon": -46.6802254
+  },
+  {
+    "name": "Heliponto Joaquim Floriano - SIKT",
+    "address": "Rua Joaquim Floriano 100",
+    "pousos_permitidos": 8,
+    "landings": 0,
+    "lat": -23.5836186,
+    "lon": -46.6710607
+  },
+  {
+    "name": "Heliponto Vigor - SNVO",
+    "address": "Rua Joaquim Carlos 396",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5329532,
+    "lon": -46.604634
+  },
+  {
+    "name": "Heliponto do Hospital Alemão Oswaldo Cruz",
+    "address": "Rua João Julião 331",
+    "pousos_permitidos": 8,
+    "landings": 0,
+    "lat": -23.5692685,
+    "lon": -46.6429812
+  },
+  {
+    "name": "Heliponto OFFICE TOWER ITAIM - SP0578",
+    "address": "Rua Jerônimo da Veiga 45",
+    "pousos_permitidos": 5,
+    "landings": 0,
+    "lat": -23.5821146,
+    "lon": -46.6841292
+  },
+  {
+    "name": "Heliponto Privado Quadra Hungria",
+    "address": "Rua Hungria 1400",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.6394898,
+    "lon": -46.5144779
+  },
+  {
+    "name": "Heliponto do Privado Atrium IV",
+    "address": "Rua Helena 260",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.4845198,
+    "lon": -46.6388286
+  },
+  {
+    "name": "Heliponto Oscar Freire",
+    "address": "Rua Heitor Penteado",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5441618,
+    "lon": -46.693904
+  },
+  {
+    "name": "Heliponto Atrium VI. Com",
+    "address": "Rua Gomes de Carvalho 1510",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5981538,
+    "lon": -46.6829066
+  },
+  {
+    "name": "Heliponto Privado CARMO COURI",
+    "address": "Rua Gomes de Carvalho 1507",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5981538,
+    "lon": -46.6829066
+  },
+  {
+    "name": "Heliponto Hospital Santa Maggiore - HSM Saúde",
+    "address": "Rua General Chagas Santos 314",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6182552,
+    "lon": -46.6320921
+  },
+  {
+    "name": "Heliponto VIOL SPE S.A (Camargo Correa)",
+    "address": "Rua Funchal 160",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.593047,
+    "lon": -46.6892076
+  },
+  {
+    "name": "Heliponto Edifício Tek Nações Unidas",
+    "address": "Rua Francisco Tramontano 100",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6152434,
+    "lon": -46.7016396
+  },
+  {
+    "name": "Heliponto do Hospital e Maternidade Anália Franco",
+    "address": "Rua Francisco Marengo 1312",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5489203,
+    "lon": -46.5582452
+  },
+  {
+    "name": "Heliponto Federação Paulista de Futebol",
+    "address": "Rua Federação Paulista de Futebol 55",
+    "pousos_permitidos": 1,
+    "landings": 0,
+    "lat": -23.5220496,
+    "lon": -46.6672567
+  },
+  {
+    "name": "Condominio Rede Globo – Heliponto Rede Globo 2",
+    "address": "Rua Evandro Carlos de Andrade 160",
+    "pousos_permitidos": 20,
+    "landings": 0,
+    "lat": -23.6151502,
+    "lon": -46.6976929
+  },
+  {
+    "name": "Heliponto Parque da Cidade Torre B3",
+    "address": "Rua Engenheiro Mesquita Sampaio 782",
+    "pousos_permitidos": 12,
+    "landings": 0,
+    "lat": -23.6260821,
+    "lon": -46.7059655
+  },
+  {
+    "name": "Heliponto Edifício Corporate Park",
+    "address": "Rua Dr. Renato Paes de Barros 1017",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5873594,
+    "lon": -46.6722232
+  },
+  {
+    "name": "Heliponto FECOMERCIO II",
+    "address": "Rua Dr. Plínio Barreto 365",
+    "pousos_permitidos": 7,
+    "landings": 0,
+    "lat": -23.5581825,
+    "lon": -46.652598
+  },
+  {
+    "name": "Heliponto Condomínio Attílio Tinelli",
+    "address": "Rua Dr. Geraldo Campos Moreira 375",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.6013365,
+    "lon": -46.6934202
+  },
+  {
+    "name": "Heliponto TORRE 2000 - SP0504",
+    "address": "Rua dos Pinheiros 870",
+    "pousos_permitidos": 5,
+    "landings": 0,
+    "lat": -23.5669455,
+    "lon": -46.6862311
+  },
+  {
+    "name": "Heliponto Condomínio Edifício Paulista Plaza",
+    "address": "Rua do Paraíso 143",
+    "pousos_permitidos": 5,
+    "landings": 0,
+    "lat": -23.5750371,
+    "lon": -46.6339443
+  },
+  {
+    "name": "Heliponto Hosp. Sta. Maggiori - Mooca",
+    "address": "Rua da Figueira 831",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5524203,
+    "lon": -46.624913
+  },
+  {
+    "name": "Heliponto AVENIDA CONSOLAÇÃO 1601 - SP0864 (Partifib)",
+    "address": "Rua da Consolação 1601",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5513576,
+    "lon": -46.6555259
+  },
+  {
+    "name": "Condomínio Edifício K1",
+    "address": "Rua Conselheiro Saraiva 207",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.4993453,
+    "lon": -46.6191268
+  },
+  {
+    "name": "Heliponto Igreja Mundial Poder de Deus - IMPD",
+    "address": "Rua Carneiro Leão 439",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5506889,
+    "lon": -46.6219229
+  },
+  {
+    "name": "Heliponto Edifício Spazio Faria Lima",
+    "address": "Rua Aspásia 98",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5856977,
+    "lon": -46.6821219
+  },
+  {
+    "name": "Heliponto do Hospital Albert Einstein",
+    "address": "Rua Apiacás 59",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5330431,
+    "lon": -46.6756656
+  },
+  {
+    "name": "Heliponto Mantecorp",
+    "address": "Rua Antônio das Chagas 1623",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6267992,
+    "lon": -46.7081606
+  },
+  {
+    "name": "Heliponto Hospital Sírio Libanês II",
+    "address": "Rua Adma Jafet 91",
+    "pousos_permitidos": 25,
+    "landings": 0,
+    "lat": -23.559219,
+    "lon": -46.6546345
+  },
+  {
+    "name": "Heliponto do Hospital M' Boi Mirim",
+    "address": "Estrada M'Boi Mirim 5203",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.6826739,
+    "lon": -46.7680387
+  },
+  {
+    "name": "Heliponto HSM Itaim",
+    "address": "Avenida Santo Amaro 22",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.5841795,
+    "lon": -46.6707146
+  },
+  {
+    "name": "Heliponto EMBRASE – Empresa Brasileira de Segurança e Vigilância",
+    "address": "Avenida Santa Marina 1560",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.523654,
+    "lon": -46.6853231
+  },
+  {
+    "name": "Heliponto Condomínio Morumbi Office Tower",
+    "address": "Avenida Roque Petroni Jr 999",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6235924,
+    "lon": -46.6968179
+  },
+  {
+    "name": "Heliponto Privado Pátio São Paulo",
+    "address": "Avenida Rebouças 2410",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5636642,
+    "lon": -46.6769083
+  },
+  {
+    "name": "Heliponto HSM - Morumbi",
+    "address": "Avenida Professor Francisco Morato 1133",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5847012,
+    "lon": -46.7184043
+  },
+  {
+    "name": "Hospital H 23 de Maio",
+    "address": "Avenida Professor Ascendino Reis",
+    "pousos_permitidos": 7,
+    "landings": 0,
+    "lat": -23.6001073,
+    "lon": -46.6523423
+  },
+  {
+    "name": "Heliponto Santander",
+    "address": "Avenida Presidente Juscelino Kubitschek 2041",
+    "pousos_permitidos": 11,
+    "landings": 0,
+    "lat": -23.5908988,
+    "lon": -46.689525
+  },
+  {
+    "name": "Heliponto Privado Spazio JK",
+    "address": "Avenida Presidente Juscelino Kubitschek 1726",
+    "pousos_permitidos": 7,
+    "landings": 0,
+    "lat": -23.5883897,
+    "lon": -46.6755062
+  },
+  {
+    "name": "Heliponto JK 1455",
+    "address": "Avenida Presidente Juscelino Kubitschek 1455",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5912733,
+    "lon": -46.6831941
+  },
+  {
+    "name": "Heliponto Parque Cultural Paulista SDQP",
+    "address": "Avenida Paulista 37",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.571099,
+    "lon": -46.6451748
+  },
+  {
+    "name": "Hospital Santa Catarina – CIAD – SP – 0500",
+    "address": "Avenida Paulista 200",
+    "pousos_permitidos": 8,
+    "landings": 0,
+    "lat": -23.5702793,
+    "lon": -46.6453645
+  },
+  {
+    "name": "Heliponto SESI-FIESP",
+    "address": "Avenida Paulista 1313",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5634874,
+    "lon": -46.6543937
+  },
+  {
+    "name": "Heliponto Ed. Conde Fco Matarazzo",
+    "address": "Avenida Paulista 1230",
+    "pousos_permitidos": 10,
+    "landings": 0,
+    "lat": -23.5635844,
+    "lon": -46.6527906
+  },
+  {
+    "name": "Heliponto Citibank - SP0306",
+    "address": "Avenida Paulista 1111",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.56468,
+    "lon": -46.6532144
+  },
+  {
+    "name": "Heliponto do Palácio dos Bandeirantes",
+    "address": "Avenida Morumbi 4500",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6015621,
+    "lon": -46.7123833
+  },
+  {
+    "name": "Heliponto Dimep",
+    "address": "Avenida Mofarrej 840",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5295182,
+    "lon": -46.7439596
+  },
+  {
+    "name": "Heliponto Arena Fundo de Investimento Imobiliário Sport Club Corinthians Paulista",
+    "address": "Avenida Miguel Ignácio Curi 111",
+    "pousos_permitidos": 25,
+    "landings": 0,
+    "lat": -23.5444156,
+    "lon": -46.4651227
+  },
+  {
+    "name": "Heliponto Centro Empresarial São Paulo",
+    "address": "Avenida Maria Coelho Aguiar 215",
+    "pousos_permitidos": 5,
+    "landings": 0,
+    "lat": -23.6549535,
+    "lon": -46.7356791
+  },
+  {
+    "name": "Heliponto Condomínio América Business Park",
+    "address": "Avenida Major Sylvio de Magalhães Padilha 5200",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5596101,
+    "lon": -46.7108398
+  },
+  {
+    "name": "Heliponto Cidade Jardim",
+    "address": "Avenida Magalhães de Castro 6070",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5600258,
+    "lon": -46.7103865
+  },
+  {
+    "name": "Heliponto Continental Tower",
+    "address": "Avenida Magalhães de Castro 12100",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.561706,
+    "lon": -46.7075979
+  },
+  {
+    "name": "Heliponto Condomínio REC Berrini",
+    "address": "Avenida Luiz Carlos Berrini 1376",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.6006172,
+    "lon": -46.6910473
+  },
+  {
+    "name": "Heliponto Privado Edifício Edel Trade Center",
+    "address": "Avenida Ibirapuera 2033",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.6025674,
+    "lon": -46.6605789
+  },
+  {
+    "name": "Heliponto do Hospital Alvorada",
+    "address": "Avenida Ibirapuera 1942",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.6015805,
+    "lon": -46.6605985
+  },
+  {
+    "name": "Heliponto Grupo Santander Banespa – Panamérica Park",
+    "address": "Avenida Guido Caloi 1000",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.649728,
+    "lon": -46.7269388
+  },
+  {
+    "name": "Heliponto Nova Arena Palmeiras",
+    "address": "Avenida Francisco Matarazzo 1705",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5260407,
+    "lon": -46.6791122
+  },
+  {
+    "name": "Heliponto Itaú-Unibanco",
+    "address": "Avenida Eusébio Matoso 891",
+    "pousos_permitidos": 7,
+    "landings": 0,
+    "lat": -23.5720951,
+    "lon": -46.6987279
+  },
+  {
+    "name": "Heliponto Privado Company (SP) - CIAD SP1280",
+    "address": "Avenida Eusébio Matoso 1375",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5728007,
+    "lon": -46.7032051
+  },
+  {
+    "name": "Heliponto Berrini One",
+    "address": "Avenida Engenheiro Luiz Carlos Berrini 105",
+    "pousos_permitidos": 15,
+    "landings": 0,
+    "lat": -23.5987682,
+    "lon": -46.6900801
+  },
+  {
+    "name": "Heliponto EZ Towers B",
+    "address": "Avenida Dr. Chucri Zaidan",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.624728,
+    "lon": -46.7003845
+  },
+  {
+    "name": "Heliponto Birmann 21",
+    "address": "Avenida Doutora Ruth Cardoso 7221",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5654135,
+    "lon": -46.7022958
+  },
+  {
+    "name": "Heliponto Divena",
+    "address": "Avenida Doutor Ricardo Jafet 2419",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.598112,
+    "lon": -46.6223604
+  },
+  {
+    "name": "Heliponto ITAÚ CTO - SP 0694",
+    "address": "Avenida do Estado 5533",
+    "pousos_permitidos": 1,
+    "landings": 0,
+    "lat": -23.5574217,
+    "lon": -46.6150381
+  },
+  {
+    "name": "Heliponto Eldorado",
+    "address": "Avenida das Nações Unidas 8501",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5734931,
+    "lon": -46.6978208
+  },
+  {
+    "name": "Heliponto Condomínio Comercial Villa Lobos (Ônix)",
+    "address": "Avenida das Nações Unidas 4777",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.5510818,
+    "lon": -46.7221429
+  },
+  {
+    "name": "Heliponto Hotel Transamérica",
+    "address": "Avenida das Nações Unidas 18591",
+    "pousos_permitidos": 7,
+    "landings": 0,
+    "lat": -23.65056,
+    "lon": -46.723356
+  },
+  {
+    "name": "Heliponto Privado Torre Sigma",
+    "address": "Avenida das Nações Unidas 17007",
+    "pousos_permitidos": 9,
+    "landings": 0,
+    "lat": -23.6401227,
+    "lon": -46.7222217
+  },
+  {
+    "name": "Heliponto BW1 Morumbi",
+    "address": "Avenida das Nações Unidas 14261",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.6229206,
+    "lon": -46.7022941
+  },
+  {
+    "name": "Heliponto Condomínio Rochaverá Alfa",
+    "address": "Avenida das Nações Unidas 14171",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.6229449,
+    "lon": -46.7012982
+  },
+  {
+    "name": "Heliponto Centro Empresarial Nações Unidas - CENU - Torre Norte",
+    "address": "Avenida das Nações Unidas 12901",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.6114233,
+    "lon": -46.6980306
+  },
+  {
+    "name": "Heliponto Edifício Dacon",
+    "address": "Avenida Cidade Jardim 400",
+    "pousos_permitidos": 3,
+    "landings": 0,
+    "lat": -23.5839463,
+    "lon": -46.6870797
+  },
+  {
+    "name": "Heliponto HBR Lead Corporate Faria Lima",
+    "address": "Avenida Brigadeiro Faria Lima 4055",
+    "pousos_permitidos": 7,
+    "landings": 0,
+    "lat": -23.5920639,
+    "lon": -46.6802573
+  },
+  {
+    "name": "Heliponto Birmann 31",
+    "address": "Avenida Brigadeiro Faria Lima 3900",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.5901699,
+    "lon": -46.6820988
+  },
+  {
+    "name": "Heliponto Privado Birmann 32",
+    "address": "Avenida Brigadeiro Faria Lima 3732",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.5892914,
+    "lon": -46.6824584
+  },
+  {
+    "name": "Heliponto Birmann 29",
+    "address": "Avenida Brigadeiro Faria Lima 3729",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.5888473,
+    "lon": -46.6814345
+  },
+  {
+    "name": "Heliponto Privado CYK",
+    "address": "Alameda Santos 960",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5665072,
+    "lon": -46.6521648
+  },
+  {
+    "name": "Heliponto Banco SOFIZA - SSZE",
+    "address": "Alameda Santos 1496",
+    "pousos_permitidos": 2,
+    "landings": 0,
+    "lat": -23.5631532,
+    "lon": -46.656295
+  },
+  {
+    "name": "Heliponto Hotel Tivoli Mofarrej",
+    "address": "Alameda Santos 1437",
+    "pousos_permitidos": 4,
+    "landings": 0,
+    "lat": -23.5640375,
+    "lon": -46.6560106
+  },
+  {
+    "name": "Heliponto Folha de São Paulo",
+    "address": "Alameda Barão de Limeira 425",
+    "pousos_permitidos": 6,
+    "landings": 0,
+    "lat": -23.5374494,
+    "lon": -46.6458487
+  },
+  {
+    "name": "HELIPONTO ACHE FARIA LIMA",
+    "address": "Avenida Brigadeiro Faria Lima 201",
+    "pousos_permitidos": 0,
+    "landings": 0,
+    "lat": -23.5610086,
+    "lon": -46.6944475
+  },
+  {
+    "name": "HELIPONTO MEGA MIX",
+    "address": "Rua Barão de Ladário",
+    "pousos_permitidos": 0,
+    "landings": 0,
+    "lat": -23.5406464,
+    "lon": -46.6182598
+  },
+  {
+    "name": "GARDENA PARTICIPAÇÕES LTDA.",
+    "address": "Avenida Professor Francisco Morato",
+    "pousos_permitidos": 0,
+    "landings": 0,
+    "lat": -23.5750653,
+    "lon": -46.7070297
+  },
+  {
+    "name": "CENTRO EMPRESARIAL IUDICE",
+    "address": "Rua Cenno Sbrighi",
+    "pousos_permitidos": 0,
+    "landings": 0,
+    "lat": -23.5092761,
+    "lon": -46.6959528
+  },
+  {
+    "name": "CENTRO EMPRESARIAL CULTURAL JOÃO DOMINGOS ARAÚJO",
+    "address": "Praça General Gentil Falcão",
+    "pousos_permitidos": 0,
+    "landings": 0,
+    "lat": -23.6052549,
+    "lon": -46.693902
+  },
+  {
+    "name": "HELICIDADE",
+    "address": "Avenida Onofrio Milano",
+    "pousos_permitidos": 0,
+    "landings": 0,
+    "lat": -23.545177,
+    "lon": -46.7402969
+  }
+]
