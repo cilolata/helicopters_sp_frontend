@@ -16,6 +16,16 @@ export default function App() {
   const [historyIcao, setHistoryIcao] = useState<string | null>(null)
   const historyPath = useHistoryRoute(historyIcao)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [visibleHelipadIndices, setVisibleHelipadIndices] = useState<Set<number>>(new Set())
+
+  function toggleHelipad(idx: number) {
+    setVisibleHelipadIndices(prev => {
+      const next = new Set(prev)
+      if (next.has(idx)) next.delete(idx)
+      else next.add(idx)
+      return next
+    })
+  }
 
   useEffect(() => {
     if (!trackedIcao) return
@@ -54,7 +64,7 @@ export default function App() {
 
         <Map
           aircrafts={aircrafts}
-          helipads={helipads}
+          helipads={helipads.filter((_, i) => visibleHelipadIndices.has(i))}
           trackedIcao={trackedIcao}
           trackPath={trackPath}
           historyPath={historyPath}
@@ -81,8 +91,10 @@ export default function App() {
           helipads={helipads}
           trackedIcao={trackedIcao}
           historyIcao={historyIcao}
+          visibleHelipadIndices={visibleHelipadIndices}
           onSelect={toggle}
           onShowHistory={handleShowHistory}
+          onToggleHelipad={toggleHelipad}
         />
       </div>
     </div>

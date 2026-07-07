@@ -6,12 +6,14 @@ import { fmt } from '../../utils/format'
 import { useDateAircrafts } from '../../hooks/useDateAircrafts'
 
 interface Props {
-  aircrafts:     Aircraft[]
-  helipads:      Helipad[]
-  trackedIcao:   string | null
-  historyIcao:   string | null
-  onSelect:      (icao: string) => void
-  onShowHistory: (icao: string) => void
+  aircrafts:             Aircraft[]
+  helipads:              Helipad[]
+  trackedIcao:           string | null
+  historyIcao:           string | null
+  visibleHelipadIndices: Set<number>
+  onSelect:              (icao: string) => void
+  onShowHistory:         (icao: string) => void
+  onToggleHelipad:       (idx: number) => void
 }
 
 type Tab = 'live' | 'today' | 'helipads'
@@ -20,7 +22,7 @@ function todayStr() {
   return new Date().toISOString().slice(0, 10)
 }
 
-export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, onSelect, onShowHistory }: Props) {
+export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad }: Props) {
   const [tab, setTab]       = useState<Tab>('live')
   const [date, setDate]     = useState(todayStr)
 
@@ -156,20 +158,32 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
               <li className="px-4 py-8 text-center text-sm text-gray-500">Carregando helipontos...</li>
             )}
             {allHelipads.map((hp, i) => {
-              const pct      = hp.pousos_permitidos > 0 ? hp.landings / hp.pousos_permitidos : 0
-              const barColor = pct === 0 ? '#4ade80' : pct < 0.7 ? '#facc15' : '#f87171'
+              const pct        = hp.pousos_permitidos > 0 ? hp.landings / hp.pousos_permitidos : 0
+              const barColor   = pct === 0 ? '#4ade80' : pct < 0.7 ? '#facc15' : '#f87171'
+              const isVisible  = visibleHelipadIndices.has(i)
               return (
-                <li key={i} className="px-4 py-3 border-l-2 border-transparent">
+                <li
+                  key={i}
+                  onClick={() => onToggleHelipad(i)}
+                  className={`px-4 py-3 cursor-pointer transition-colors border-l-2 ${
+                    isVisible ? 'bg-green-900/20 border-green-500' : 'border-transparent hover:bg-white/5'
+                  }`}
+                >
                   <div className="flex items-start justify-between gap-2">
-                    <p className={`text-xs font-medium leading-snug truncate flex-1 ${hp.landings > 0 ? 'text-white' : 'text-gray-400'}`}>
-                      {hp.name.replace(/^Heliponto\s+/i, '')}
-                    </p>
+                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                      <span className={`shrink-0 w-4 h-4 rounded-full border flex items-center justify-center text-[9px] font-black ${
+                        isVisible ? 'bg-green-700 border-green-500 text-white' : 'bg-transparent border-gray-600 text-gray-500'
+                      }`}>H</span>
+                      <p className={`text-xs font-medium leading-snug truncate ${hp.landings > 0 ? 'text-white' : 'text-gray-400'}`}>
+                        {hp.name.replace(/^Heliponto\s+/i, '')}
+                      </p>
+                    </div>
                     <span className={`text-xs font-bold shrink-0 tabular-nums ${hp.landings > 0 ? 'text-white' : 'text-gray-600'}`}>
                       {hp.landings}
                       {hp.pousos_permitidos > 0 && <span className="text-gray-500 font-normal">/{hp.pousos_permitidos}</span>}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600 truncate mt-0.5">{hp.address}</p>
+                  <p className="text-xs text-gray-600 truncate mt-0.5 pl-5">{hp.address}</p>
                   {hp.pousos_permitidos > 0 && (
                     <div className="mt-1.5 h-1 bg-white/10 rounded-full overflow-hidden">
                       <div
