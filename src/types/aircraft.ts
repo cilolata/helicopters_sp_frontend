@@ -1,6 +1,8 @@
 export interface Aircraft {
   icao_hex:     string
   callsign:     string | null
+  owner:        string | null
+  model:        string | null
   altitude:     number | null
   ground_speed: number | null
   track:        number | null

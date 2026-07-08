@@ -25,8 +25,10 @@ export function StatusBar({ aircrafts, error, trackedIcao }: Props) {
       {tracked && (
         <div className="mt-1.5 pt-1.5 border-t border-white/25 text-xs">
           📍 Seguindo <b>{tracked.callsign ?? tracked.icao_hex}</b><br />
+          {tracked.model && <>{tracked.model} · </>}
           {tracked.altitude     != null && <>{tracked.altitude} ft · </>}
           {tracked.ground_speed != null && <>{tracked.ground_speed} kt</>}
+          {tracked.owner && <><br />{tracked.owner}</>}
         </div>
       )}
     </div>

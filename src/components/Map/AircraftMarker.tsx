@@ -15,9 +15,11 @@ interface Props {
 }
 
 export function AircraftMarker({ ac, tracked, onSelect }: Props) {
-  const markerRef = useRef<L.Marker>(null)
-  const prevPos   = useRef<[number, number]>([ac.lat, ac.lon])
-  const frameRef  = useRef<number>()
+  const markerRef  = useRef<L.Marker>(null)
+  const prevPos    = useRef<[number, number]>([ac.lat, ac.lon])
+  const frameRef   = useRef<number>()
+  // Stable ref so react-leaflet never fights the lerp animation via prop updates
+  const stablePos  = useRef<[number, number]>([ac.lat, ac.lon])
 
   // Smooth position lerp between polls
   useEffect(() => {
@@ -47,7 +49,7 @@ export function AircraftMarker({ ac, tracked, onSelect }: Props) {
   return (
     <Marker
       ref={markerRef}
-      position={[ac.lat, ac.lon]}
+      position={stablePos.current}
       icon={makeHelicopterIcon(tracked, ac.track ?? 0)}
       eventHandlers={{ click: onSelect }}
     >

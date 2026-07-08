@@ -19,7 +19,7 @@ interface Props {
 type Tab = 'live' | 'today' | 'helipads'
 
 function todayStr() {
-  return new Date().toISOString().slice(0, 10)
+  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' })
 }
 
 export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad }: Props) {
@@ -40,7 +40,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
       )
 
   function fmtTime(iso: string) {
-    return new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    return new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })
   }
 
   const tabs: { id: Tab; label: string; active: string }[] = [
@@ -130,32 +130,25 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
                 Nenhum registro nesta data.
               </li>
             )}
-            {dateList.map(ac => {
-              const isHistory = historyIcao === ac.icao_hex
-              return (
-                <li
-                  key={ac.icao_hex}
-                  onClick={() => onShowHistory(ac.icao_hex)}
-                  className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors border-l-2 ${
-                    isHistory ? 'bg-green-900/30 border-green-400' : 'hover:bg-white/5 border-transparent'
-                  }`}
-                >
-                  <FaHelicopter size={16} className={isHistory ? 'text-green-400 shrink-0' : 'text-yellow-500 shrink-0'} />
-                  <div className="min-w-0 flex-1">
-                    <p className="font-medium text-sm truncate">
-                      {ac.last_callsign ?? ac.icao_hex}
-                      {ac.last_callsign && (
-                        <span className="ml-1.5 text-xs text-gray-500 font-normal">{ac.icao_hex}</span>
-                      )}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      {fmtTime(ac.first_seen)} → {fmtTime(ac.last_seen)}
-                    </p>
-                  </div>
-                  {isHistory && <span className="text-xs text-green-400 shrink-0">rota</span>}
-                </li>
-              )
-            })}
+            {dateList.map(ac => (
+              <li
+                key={ac.icao_hex}
+                className="flex items-center gap-3 px-4 py-3 border-l-2 border-transparent"
+              >
+                <FaHelicopter size={16} className="text-yellow-500 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-sm truncate">
+                    {ac.last_callsign ?? ac.icao_hex}
+                    {ac.last_callsign && (
+                      <span className="ml-1.5 text-xs text-gray-500 font-normal">{ac.icao_hex}</span>
+                    )}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {fmtTime(ac.first_seen)} → {fmtTime(ac.last_seen)}
+                  </p>
+                </div>
+              </li>
+            ))}
           </>
         )}
 
