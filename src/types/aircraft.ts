@@ -14,3 +14,10 @@ export interface Aircraft {
   captured_at:  string
   type:         'helicopter'
 }
+
+export interface DailyAircraft {
+  icao_hex:      string
+  last_callsign: string | null
+  first_seen:    string
+  last_seen:     string
+}

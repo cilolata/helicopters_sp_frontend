@@ -4,7 +4,8 @@ import { Aircraft } from '../../types/aircraft'
 import { Helipad } from '../../types/helipad'
 import { fmt } from '../../utils/format'
 import { useDateAircrafts } from '../../hooks/useDateAircrafts'
-import { exportToPdf, ExportRow } from '../../utils/exportPdf'
+import { exportToPdf } from '../../utils/exportPdf'
+import { ExportRow } from '../../types/export'
 import { API_BASE } from '../../config'
 
 interface Props {

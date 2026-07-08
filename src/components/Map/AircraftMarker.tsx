@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import { Aircraft } from '../../types/aircraft'
@@ -7,6 +7,21 @@ import { lerp } from '../../utils/format'
 import { AircraftPopup } from './AircraftPopup'
 
 const POLL_MS = 5000
+
+function startLerp(
+  marker: L.Marker,
+  from: [number, number],
+  to: [number, number],
+  frameRef: React.MutableRefObject<number | undefined>,
+): void {
+  const start = performance.now()
+  function step(now: number) {
+    const t = Math.min((now - start) / POLL_MS, 1)
+    marker.setLatLng([lerp(from[0], to[0], t), lerp(from[1], to[1], t)])
+    if (t < 1) frameRef.current = requestAnimationFrame(step)
+  }
+  frameRef.current = requestAnimationFrame(step)
+}
 
 interface Props {
   ac:       Aircraft
@@ -30,13 +45,7 @@ export function AircraftMarker({ ac, tracked, onSelect }: Props) {
     prevPos.current = to
     if (frameRef.current) cancelAnimationFrame(frameRef.current)
     if (from[0] === to[0] && from[1] === to[1]) return
-    const start = performance.now()
-    function step(now: number) {
-      const t = Math.min((now - start) / POLL_MS, 1)
-      marker!.setLatLng([lerp(from[0], to[0], t), lerp(from[1], to[1], t)])
-      if (t < 1) frameRef.current = requestAnimationFrame(step)
-    }
-    frameRef.current = requestAnimationFrame(step)
+    startLerp(marker, from, to, frameRef)
     return () => { if (frameRef.current) cancelAnimationFrame(frameRef.current) }
   }, [ac.lat, ac.lon])
 

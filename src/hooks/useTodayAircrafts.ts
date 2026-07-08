@@ -1,34 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { DailyAircraft } from '../types/aircraft'
 import { API_BASE } from '../config'
-
-export interface DailyAircraft {
-  icao_hex:      string
-  last_callsign: string | null
-  first_seen:    string
-  last_seen:     string
-}
 
 const FETCH_TIMEOUT = 8000
 
 export function useTodayAircrafts() {
   const [aircrafts, setAircrafts] = useState<DailyAircraft[]>([])
+  const cancelledRef = useRef(false)
+
+  async function load() {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT)
+    try {
+      const r = await fetch(`${API_BASE}/aircrafts/today`, { signal: controller.signal })
+      const data = await r.json()
+      if (!cancelledRef.current) setAircrafts(data)
+    } catch {}
+    finally {
+      clearTimeout(timer)
+    }
+  }
 
   useEffect(() => {
-    let cancelled = false
-
-    function load() {
-      const controller = new AbortController()
-      const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT)
-      fetch(`${API_BASE}/aircrafts/today`, { signal: controller.signal })
-        .then(r => r.json())
-        .then(data => { if (!cancelled) setAircrafts(data) })
-        .catch(() => {})
-        .finally(() => clearTimeout(timer))
-    }
-
+    cancelledRef.current = false
     load()
     const id = setInterval(load, 30_000)
-    return () => { cancelled = true; clearInterval(id) }
+    return () => { cancelledRef.current = true; clearInterval(id) }
   }, [])
 
   return aircrafts

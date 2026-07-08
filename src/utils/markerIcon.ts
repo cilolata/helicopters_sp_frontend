@@ -3,16 +3,18 @@ import L from 'leaflet'
 const BLUE  = '#2979ff'
 const RED   = '#ff1744'
 
+const BORDER = 'rgba(220,220,220,0.7)'
+
 function helicopterSvg(color: string): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
     <!-- tail boom -->
-    <rect x="22" y="32" width="4" height="13" rx="2" fill="${color}"/>
+    <rect x="22" y="32" width="4" height="13" rx="2" fill="${color}" stroke="${BORDER}" stroke-width="1"/>
     <!-- tail rotor (static) -->
     <rect x="17" y="43" width="14" height="2.5" rx="1.2" fill="${color}" opacity="0.7"/>
     <!-- body fuselage -->
-    <ellipse cx="24" cy="27" rx="8" ry="12" fill="${color}"/>
+    <ellipse cx="24" cy="27" rx="8" ry="12" fill="${color}" stroke="${BORDER}" stroke-width="1.5"/>
     <!-- cockpit bubble -->
-    <ellipse cx="24" cy="15" rx="6.5" ry="6" fill="${color}" opacity="0.65"/>
+    <ellipse cx="24" cy="15" rx="6.5" ry="6" fill="${color}" opacity="0.65" stroke="${BORDER}" stroke-width="1.5"/>
     <!-- main rotor (SMIL — independent of parent CSS transform) -->
     <g>
       <animateTransform attributeName="transform" type="rotate"
@@ -21,7 +23,7 @@ function helicopterSvg(color: string): string {
       <rect x="22" y="0" width="4" height="44" rx="2" fill="${color}" opacity="0.92"/>
     </g>
     <!-- rotor hub -->
-    <circle cx="24" cy="20" r="4.5" fill="${color}"/>
+    <circle cx="24" cy="20" r="4.5" fill="${color}" stroke="${BORDER}" stroke-width="1"/>
     <!-- cockpit glass -->
     <ellipse cx="24" cy="15" rx="4" ry="4" fill="rgba(255,255,255,0.15)"/>
   </svg>`

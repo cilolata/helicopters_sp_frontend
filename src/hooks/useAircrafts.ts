@@ -9,29 +9,29 @@ export function useAircrafts() {
   const [aircrafts, setAircrafts] = useState<Aircraft[]>([])
   const [error, setError]         = useState<string | null>(null)
   const controllerRef = useRef<AbortController | null>(null)
+  const cancelledRef  = useRef(false)
+
+  async function poll() {
+    controllerRef.current?.abort()
+    const controller = new AbortController()
+    controllerRef.current = controller
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT)
+    try {
+      const data = await fetchHelicopters(controller.signal)
+      if (!cancelledRef.current) { setAircrafts(data); setError(null) }
+    } catch (err: any) {
+      if (!cancelledRef.current && err?.name !== 'AbortError') setError('Erro ao carregar dados')
+    } finally {
+      clearTimeout(timer)
+    }
+  }
 
   useEffect(() => {
-    let cancelled = false
-
-    async function poll() {
-      controllerRef.current?.abort()
-      const controller = new AbortController()
-      controllerRef.current = controller
-      const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT)
-      try {
-        const data = await fetchHelicopters(controller.signal)
-        if (!cancelled) { setAircrafts(data); setError(null) }
-      } catch (err: any) {
-        if (!cancelled && err?.name !== 'AbortError') setError('Erro ao carregar dados')
-      } finally {
-        clearTimeout(timer)
-      }
-    }
-
+    cancelledRef.current = false
     poll()
     const id = setInterval(poll, POLL_INTERVAL)
     return () => {
-      cancelled = true
+      cancelledRef.current = true
       clearInterval(id)
       controllerRef.current?.abort()
     }
