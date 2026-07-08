@@ -6,7 +6,7 @@ export function useTrackPath(aircrafts: Aircraft[], trackedIcao: string | null) 
   const [path, setPath] = useState<[number, number][]>([])
   const prevTracked = useRef<string | null>(null)
 
-  // When a new aircraft is selected, load its full historical route from the DB
+  // Load historical route when a new aircraft is selected
   useEffect(() => {
     if (!trackedIcao) {
       setPath([])
@@ -16,15 +16,20 @@ export function useTrackPath(aircrafts: Aircraft[], trackedIcao: string | null) 
     if (prevTracked.current === trackedIcao) return
     prevTracked.current = trackedIcao
 
-    fetch(`${API_BASE}/aircrafts/${trackedIcao}/route`)
+    let cancelled = false
+    const controller = new AbortController()
+
+    fetch(`${API_BASE}/aircrafts/${trackedIcao}/route`, { signal: controller.signal })
       .then(r => r.json())
       .then((data: { lat: number; lon: number }[]) => {
-        setPath(data.map(p => [p.lat, p.lon] as [number, number]))
+        if (!cancelled) setPath(data.map(p => [p.lat, p.lon] as [number, number]))
       })
-      .catch(() => setPath([]))
+      .catch(() => { if (!cancelled) setPath([]) })
+
+    return () => { cancelled = true; controller.abort() }
   }, [trackedIcao])
 
-  // Append each new position as live polls arrive
+  // Append live positions as polls arrive (cap at 2000 points)
   useEffect(() => {
     if (!trackedIcao) return
     const ac = aircrafts.find(a => a.icao_hex === trackedIcao)
@@ -32,7 +37,8 @@ export function useTrackPath(aircrafts: Aircraft[], trackedIcao: string | null) 
     setPath(prev => {
       const last = prev[prev.length - 1]
       if (last && last[0] === ac.lat && last[1] === ac.lon) return prev
-      return [...prev, [ac.lat, ac.lon]]
+      const next = [...prev, [ac.lat, ac.lon] as [number, number]]
+      return next.length > 2000 ? next.slice(-2000) : next
     })
   }, [aircrafts, trackedIcao])
 

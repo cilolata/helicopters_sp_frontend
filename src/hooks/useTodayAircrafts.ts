@@ -8,19 +8,27 @@ export interface DailyAircraft {
   last_seen:     string
 }
 
+const FETCH_TIMEOUT = 8000
+
 export function useTodayAircrafts() {
   const [aircrafts, setAircrafts] = useState<DailyAircraft[]>([])
 
   useEffect(() => {
+    let cancelled = false
+
     function load() {
-      fetch(`${API_BASE}/aircrafts/today`)
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT)
+      fetch(`${API_BASE}/aircrafts/today`, { signal: controller.signal })
         .then(r => r.json())
-        .then(setAircrafts)
-        .catch(console.error)
+        .then(data => { if (!cancelled) setAircrafts(data) })
+        .catch(() => {})
+        .finally(() => clearTimeout(timer))
     }
+
     load()
     const id = setInterval(load, 30_000)
-    return () => clearInterval(id)
+    return () => { cancelled = true; clearInterval(id) }
   }, [])
 
   return aircrafts
