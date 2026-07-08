@@ -10,7 +10,7 @@ import { Aircraft } from '../types/aircraft';
 
 const baseAircraft: Aircraft = {
   icao_hex: 'E48832', callsign: 'PPAIS', owner: 'LUCAS MARTINS CARDOSO',
-  model: 'R44', altitude: 800, ground_speed: 60, track: 90,
+  model: 'R44', operator: null, altitude: 800, ground_speed: 60, track: 90,
   vert_rate: 0, lat: -23.55, lon: -46.63, on_ground: 0,
   captured_at: new Date().toISOString(), type: 'helicopter',
 };
