@@ -3,6 +3,7 @@ export interface Aircraft {
   callsign:     string | null
   owner:        string | null
   model:        string | null
+  operator:     string | null
   altitude:     number | null
   ground_speed: number | null
   track:        number | null

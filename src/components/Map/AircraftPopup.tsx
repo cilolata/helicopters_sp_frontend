@@ -8,8 +8,9 @@ export function AircraftPopup({ ac }: { ac: Aircraft }) {
     <div className="text-sm leading-7 min-w-40">
       <strong className="text-base">{ac.callsign ?? ac.icao_hex}</strong>
       <span className="ml-1.5 text-xs text-gray-500">🚁 Helicóptero</span><br />
-      {ac.owner && <><b>Proprietário:</b> {ac.owner}<br /></>}
-      {ac.model && <><b>Modelo:</b> {ac.model}<br /></>}
+      {ac.model    && <><b>Modelo:</b> {ac.model}<br /></>}
+      {ac.owner    && <><b>Proprietário:</b> {ac.owner}<br /></>}
+      {ac.operator && <><b>Operador:</b> {ac.operator}<br /></>}
       <b>ICAO:</b> {ac.icao_hex}<br />
       <b>Altitude:</b> {fmt(ac.altitude, 'ft')}<br />
       <b>Velocidade:</b> {fmt(ac.ground_speed, 'kt')}<br />

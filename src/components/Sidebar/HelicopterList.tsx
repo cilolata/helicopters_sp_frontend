@@ -4,6 +4,8 @@ import { Aircraft } from '../../types/aircraft'
 import { Helipad } from '../../types/helipad'
 import { fmt } from '../../utils/format'
 import { useDateAircrafts } from '../../hooks/useDateAircrafts'
+import { exportToPdf, ExportRow } from '../../utils/exportPdf'
+import { API_BASE } from '../../config'
 
 interface Props {
   aircrafts:             Aircraft[]
@@ -23,9 +25,23 @@ function todayStr() {
 }
 
 export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad }: Props) {
-  const [tab, setTab]         = useState<Tab>('live')
-  const [date, setDate]       = useState(todayStr)
+  const [tab, setTab]              = useState<Tab>('live')
+  const [date, setDate]            = useState(todayStr)
   const [helipadSearch, setHelipadSearch] = useState('')
+  const [exporting, setExporting]  = useState(false)
+
+  async function handleExportPdf() {
+    setExporting(true)
+    try {
+      const res  = await fetch(`${API_BASE}/aircrafts/export?date=${date}`)
+      const rows = await res.json() as ExportRow[]
+      exportToPdf(rows, date)
+    } catch {
+      // silently ignore — user can retry
+    } finally {
+      setExporting(false)
+    }
+  }
 
   const { aircrafts: dateList, loading } = useDateAircrafts(date)
 
@@ -73,18 +89,29 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
 
       {/* Date picker — only shown on histórico tab */}
       {tab === 'today' && (
-        <div className="px-3 py-2 bg-gray-950 border-b border-white/10 flex items-center gap-2">
-          <input
-            type="date"
-            value={date}
-            max={todayStr()}
-            onChange={e => setDate(e.target.value)}
-            className="flex-1 bg-gray-800 text-white text-xs rounded px-2 py-1.5 border border-white/10
-                       focus:outline-none focus:border-yellow-500 cursor-pointer"
-          />
-          <span className="text-xs text-gray-500 shrink-0 tabular-nums">
-            {loading ? '…' : `${dateList.length} voos`}
-          </span>
+        <div className="px-3 py-2 bg-gray-950 border-b border-white/10 flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <input
+              type="date"
+              value={date}
+              max={todayStr()}
+              onChange={e => setDate(e.target.value)}
+              className="flex-1 bg-gray-800 text-white text-xs rounded px-2 py-1.5 border border-white/10
+                         focus:outline-none focus:border-yellow-500 cursor-pointer"
+            />
+            <span className="text-xs text-gray-500 shrink-0 tabular-nums">
+              {loading ? '…' : `${dateList.length} voos`}
+            </span>
+          </div>
+          <button
+            onClick={handleExportPdf}
+            disabled={exporting}
+            className="w-full text-center text-xs bg-yellow-600/20 hover:bg-yellow-600/40 text-yellow-400
+                       border border-yellow-600/40 rounded px-2 py-1.5 transition-colors
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {exporting ? 'Gerando PDF…' : '⬇ Exportar PDF'}
+          </button>
         </div>
       )}
 
