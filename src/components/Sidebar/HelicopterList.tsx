@@ -118,6 +118,9 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
           <p className="text-[10px] text-white/70 leading-snug">
             🚔 Aeronaves da polícia são omitidas do mapa e dos registros.
           </p>
+          <p className="text-[10px] text-white/70 leading-snug">
+            ℹ Cada entrada no perímetro de SP é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.
+          </p>
         </div>
       )}
 
