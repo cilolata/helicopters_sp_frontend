@@ -17,8 +17,18 @@ export function exportToPdf(rows: ExportRow[], date: string) {
   doc.setFontSize(9)
   doc.text(`Gerado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`, 14, 20)
 
+  doc.setFontSize(7)
+  doc.setTextColor(100)
+  const notices = [
+    '⚠ Apenas voos dentro do perímetro do município de SP são registrados.',
+    '🚔 Aeronaves da polícia são omitidas do mapa e dos registros.',
+    'ℹ Cada entrada no perímetro de SP é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.',
+  ]
+  notices.forEach((txt, i) => doc.text(txt, 14, 27 + i * 4.5))
+  doc.setTextColor(0)
+
   autoTable(doc, {
-    startY: 25,
+    startY: 43,
     styles:       { fontSize: 7, cellPadding: 2 },
     headStyles:   { fillColor: [30, 30, 30], textColor: 255, fontStyle: 'bold' },
     alternateRowStyles: { fillColor: [245, 245, 245] },
