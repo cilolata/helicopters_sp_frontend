@@ -38,12 +38,12 @@ export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, t
       {/* Contorno escuro por baixo para dar contraste */}
       <Polygon
         positions={SP_POLYGON}
-        pathOptions={{ color: '#000', weight: 5, opacity: 0.5, fillOpacity: 0, interactive: false }}
+        pathOptions={{ color: '#000', weight: 5, opacity: 0.6, fillOpacity: 0, interactive: false }}
       />
-      {/* Linha amarela do perímetro SP por cima */}
+      {/* Linha amarelo brilhante do perímetro SP */}
       <Polygon
         positions={SP_POLYGON}
-        pathOptions={{ color: '#facc15', weight: 3, opacity: 1, fillOpacity: 0, interactive: false }}
+        pathOptions={{ color: '#ffe600', weight: 3, opacity: 1, fillOpacity: 0, interactive: false }}
       />
       {historyPath.length > 1 && (
         <>
