@@ -112,8 +112,11 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
           >
             {exporting ? 'Gerando PDF…' : '⬇ Exportar PDF'}
           </button>
-          <p className="text-[10px] text-gray-600 leading-snug">
+          <p className="text-[10px] text-white/70 leading-snug">
             ⚠ Apenas voos dentro do perímetro do município de SP são registrados no histórico.
+          </p>
+          <p className="text-[10px] text-white/70 leading-snug">
+            🚔 Aeronaves da polícia são omitidas do mapa e dos registros.
           </p>
         </div>
       )}
