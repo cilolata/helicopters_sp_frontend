@@ -39,10 +39,11 @@ export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, t
         positions={SP_POLYGON}
         pathOptions={{
           color: '#facc15',
-          weight: 1.5,
-          dashArray: '8 5',
+          weight: 2,
+          opacity: 0.8,
           fillColor: '#facc15',
-          fillOpacity: 0.03,
+          fillOpacity: 0.04,
+          interactive: false,
         }}
       />
       {historyPath.length > 1 && (
