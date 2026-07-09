@@ -20,9 +20,9 @@ export function exportToPdf(rows: ExportRow[], date: string) {
   doc.setFontSize(7)
   doc.setTextColor(100)
   const notices = [
-    '⚠ Apenas voos dentro do perímetro do município de SP são registrados.',
-    '🚔 Aeronaves da polícia são omitidas do mapa e dos registros.',
-    'ℹ Cada entrada no perímetro de SP é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.',
+    'Apenas voos dentro do perímetro do município de SP são registrados.',
+    'Aeronaves da polícia são omitidas do mapa e dos registros.',
+    'Cada entrada no perímetro de SP é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.',
   ]
   notices.forEach((txt, i) => doc.text(txt, 14, 27 + i * 4.5))
   doc.setTextColor(0)
