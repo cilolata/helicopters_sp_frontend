@@ -1,5 +1,5 @@
 import React from 'react'
-import { MapContainer, TileLayer, Polyline, Rectangle, Tooltip } from 'react-leaflet'
+import { MapContainer, TileLayer, Polyline, Polygon } from 'react-leaflet'
 // @ts-ignore: CSS import declaration not available in this project
 import 'leaflet/dist/leaflet.css'
 import { Aircraft } from '../../types/aircraft'
@@ -7,12 +7,7 @@ import { Helipad } from '../../types/helipad'
 import { AircraftMarker } from './AircraftMarker'
 import { HelipadMarker } from './HelipadMarker'
 import { MapAutoFit, MapTracker, MapClickDeselect } from './MapControls'
-
-// Perímetro do município de SP (GeoSampa / MapaBase_Politico)
-const SP_BOUNDS: [[number, number], [number, number]] = [
-  [-24.00851, -46.8269],
-  [-23.35646, -46.362653],
-]
+import { SP_POLYGON } from '../../utils/spBoundary'
 
 interface Props {
   aircrafts:             Aircraft[]
@@ -40,23 +35,16 @@ export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, t
       <MapAutoFit aircrafts={aircrafts} />
       <MapTracker aircrafts={aircrafts} trackedIcao={trackedIcao} />
       <MapClickDeselect onDeselect={onDeselect} />
-      <Rectangle
-        bounds={SP_BOUNDS}
+      <Polygon
+        positions={SP_POLYGON}
         pathOptions={{
           color: '#facc15',
-          weight: 2,
+          weight: 1.5,
           dashArray: '8 5',
           fillColor: '#facc15',
-          fillOpacity: 0.04,
+          fillOpacity: 0.03,
         }}
-      >
-        <Tooltip sticky direction="top" opacity={0.92}>
-          <span style={{ fontSize: 12 }}>
-            📍 Apenas voos dentro deste perímetro (município de SP)<br />
-            são registrados no histórico e nos relatórios.
-          </span>
-        </Tooltip>
-      </Rectangle>
+      />
       {historyPath.length > 1 && (
         <>
           <Polyline positions={historyPath} pathOptions={{ color: '#000', weight: 7, opacity: 0.5, dashArray: '10 6' }} />
