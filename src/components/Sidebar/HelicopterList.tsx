@@ -46,8 +46,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
 
   const { aircrafts: dateList, loading } = useDateAircrafts(date)
 
-  const activeHelipads = helipads.filter(hp => hp.landings > 0).sort((a, b) => b.landings - a.landings)
-  const allHelipads    = [...helipads].sort((a, b) => b.pousos_permitidos - a.pousos_permitidos)
+  const allHelipads = [...helipads].sort((a, b) => b.pousos_permitidos - a.pousos_permitidos)
 
   const filteredHelipads = helipadSearch.trim() === ''
     ? allHelipads
@@ -63,7 +62,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
   const tabs: { id: Tab; label: string; active: string }[] = [
     { id: 'live',     label: `🚁 ${aircrafts.length} ao vivo`,  active: 'border-red-500' },
     { id: 'today',    label: `📋 histórico`,                    active: 'border-yellow-500' },
-    { id: 'helipads', label: `H ${activeHelipads.length > 0 ? `${activeHelipads.length} pousos` : helipads.length}`, active: 'border-green-500' },
+    { id: 'helipads', label: `H ${helipads.length}`, active: 'border-green-500' },
   ]
 
   return (
@@ -203,9 +202,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
             )}
             {filteredHelipads.map((hp, i) => {
               const originalIdx = allHelipads.indexOf(hp)
-              const pct        = hp.pousos_permitidos > 0 ? hp.landings / hp.pousos_permitidos : 0
-              const barColor   = pct === 0 ? '#4ade80' : pct < 0.7 ? '#facc15' : '#f87171'
-              const isVisible  = visibleHelipadIndices.has(originalIdx)
+              const isVisible   = visibleHelipadIndices.has(originalIdx)
               return (
                 <li
                   key={i}
@@ -219,24 +216,17 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
                       <span className={`shrink-0 w-4 h-4 rounded-full border flex items-center justify-center text-[9px] font-black ${
                         isVisible ? 'bg-green-700 border-green-500 text-white' : 'bg-transparent border-gray-600 text-gray-500'
                       }`}>H</span>
-                      <p className={`text-xs font-medium leading-snug truncate ${hp.landings > 0 ? 'text-white' : 'text-gray-400'}`}>
+                      <p className="text-xs font-medium leading-snug truncate text-gray-300">
                         {hp.name.replace(/^Heliponto\s+/i, '')}
                       </p>
                     </div>
-                    <span className={`text-xs font-bold shrink-0 tabular-nums ${hp.landings > 0 ? 'text-white' : 'text-gray-600'}`}>
-                      {hp.landings}
-                      {hp.pousos_permitidos > 0 && <span className="text-gray-500 font-normal">/{hp.pousos_permitidos}</span>}
-                    </span>
+                    {hp.pousos_permitidos > 0 && (
+                      <span className="text-xs font-bold shrink-0 tabular-nums text-gray-400">
+                        {hp.pousos_permitidos}
+                      </span>
+                    )}
                   </div>
                   <p className="text-xs text-gray-600 truncate mt-0.5 pl-5">{hp.address}</p>
-                  {hp.pousos_permitidos > 0 && (
-                    <div className="mt-1.5 h-1 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min(pct * 100, 100)}%`, background: barColor }}
-                      />
-                    </div>
-                  )}
                 </li>
               )
             })}

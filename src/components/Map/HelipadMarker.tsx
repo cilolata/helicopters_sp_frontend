@@ -30,9 +30,6 @@ export function HelipadMarker({ hp, onHide }: HelipadMarkerProps) {
     onHide()
   }
 
-  const pct      = hp.pousos_permitidos > 0 ? hp.landings / hp.pousos_permitidos : 0
-  const barColor = pct === 0 ? '#4ade80' : pct < 0.7 ? '#facc15' : '#f87171'
-
   return (
     <Marker
       ref={markerRef}
@@ -55,17 +52,12 @@ export function HelipadMarker({ hp, onHide }: HelipadMarkerProps) {
           </div>
           <div style={{ color: '#555', fontSize: '12px', marginBottom: '6px' }}>{hp.address}</div>
           {hp.pousos_permitidos > 0 && (
-            <>
-              <div style={{ fontSize: '12px', marginBottom: '4px' }}>
-                Pousos hoje: <strong>{hp.landings}</strong> / {hp.pousos_permitidos}
-              </div>
-              <div style={{ height: '5px', background: '#e5e7eb', borderRadius: '3px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${Math.min(pct * 100, 100)}%`, background: barColor, borderRadius: '3px', transition: 'width 0.3s' }} />
-              </div>
-            </>
+            <div style={{ fontSize: '12px' }}>
+              Ciclos permitidos: <strong>{hp.pousos_permitidos}</strong>
+            </div>
           )}
           {hp.pousos_permitidos === 0 && (
-            <div style={{ fontSize: '12px', color: '#888' }}>Sem limite de pousos</div>
+            <div style={{ fontSize: '12px', color: '#888' }}>Sem limite de ciclos</div>
           )}
         </div>
       </Popup>
