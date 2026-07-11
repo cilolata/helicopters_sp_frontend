@@ -26,10 +26,10 @@ function todayStr() {
 }
 
 export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad }: Props) {
-  const [tab, setTab]              = useState<Tab>('live')
-  const [date, setDate]            = useState(todayStr)
+  const [tab, setTab] = useState<Tab>('live')
+  const [date, setDate] = useState(todayStr)
   const [helipadSearch, setHelipadSearch] = useState('')
-  const [exporting, setExporting]  = useState(false)
+  const [exporting, setExporting] = useState(false)
 
   async function handleExportPdf() {
     setExporting(true)
