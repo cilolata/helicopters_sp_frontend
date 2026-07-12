@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Aircraft } from '../types/aircraft'
 import { fetchHelicopters } from '../services/aircraft.service'
+import { isBlockedCallsign } from '../utils/blocklist'
 
 const POLL_INTERVAL = 5000
 const FETCH_TIMEOUT = 8000
@@ -18,7 +19,8 @@ export function useAircrafts() {
     const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT)
     try {
       const data = await fetchHelicopters(controller.signal)
-      if (!cancelledRef.current) { setAircrafts(data); setError(null) }
+      const visible = data.filter(ac => !isBlockedCallsign(ac.callsign))
+      if (!cancelledRef.current) { setAircrafts(visible); setError(null) }
     } catch (err: any) {
       if (!cancelledRef.current && err?.name !== 'AbortError') setError('Erro ao carregar dados')
     } finally {

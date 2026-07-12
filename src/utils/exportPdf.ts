@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { ExportRow } from '../types/export'
+import { isBlockedCallsign } from './blocklist'
 
 function fmtTime(iso: string) {
   return new Date(iso).toLocaleString('pt-BR', {
@@ -10,6 +11,8 @@ function fmtTime(iso: string) {
 }
 
 export function exportToPdf(rows: ExportRow[], date: string) {
+  rows = rows.filter(r => !isBlockedCallsign(r.last_callsign))
+
   const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' })
 
   doc.setFontSize(13)

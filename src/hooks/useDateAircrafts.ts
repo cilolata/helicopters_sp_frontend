@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { DailyAircraft } from '../types/aircraft'
 import { API_BASE } from '../config'
+import { isBlockedCallsign } from '../utils/blocklist'
 
 export function useDateAircrafts(date: string) {
   const [aircrafts, setAircrafts] = useState<DailyAircraft[]>([])
@@ -10,8 +11,9 @@ export function useDateAircrafts(date: string) {
   async function fetchByDate() {
     try {
       const r = await fetch(`${API_BASE}/aircrafts/history?date=${date}`)
-      const data = await r.json()
-      if (!cancelledRef.current) setAircrafts(data)
+      const data = await r.json() as DailyAircraft[]
+      const visible = data.filter(ac => !isBlockedCallsign(ac.last_callsign))
+      if (!cancelledRef.current) setAircrafts(visible)
     } catch {
       if (!cancelledRef.current) setAircrafts([])
     } finally {
