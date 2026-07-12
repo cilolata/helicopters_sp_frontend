@@ -136,7 +136,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
               const isTracked = trackedIcao === ac.icao_hex
               return (
                 <li
-                  key={ac.icao_hex}
+                  key={`live-${ac.icao_hex}`}
                   onClick={() => onSelect(ac.icao_hex)}
                   className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors border-l-2 ${
                     isTracked ? 'bg-blue-700/30 border-blue-400' : 'hover:bg-white/5 border-transparent'
@@ -168,7 +168,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
             )}
             {dateList.map(ac => (
               <li
-                key={ac.icao_hex}
+                key={`hist-${ac.icao_hex}`}
                 className="flex items-center gap-3 px-4 py-3 border-l-2 border-transparent"
               >
                 <FaHelicopter size={16} className="text-yellow-500 shrink-0" />
@@ -209,12 +209,12 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
             {filteredHelipads.length === 0 && allHelipads.length > 0 && (
               <li className="px-4 py-8 text-center text-sm text-gray-500">Nenhum resultado.</li>
             )}
-            {filteredHelipads.map((hp, i) => {
+            {filteredHelipads.map((hp) => {
               const originalIdx = allHelipads.indexOf(hp)
               const isVisible   = visibleHelipadIndices.has(originalIdx)
               return (
                 <li
-                  key={i}
+                  key={`pad-${originalIdx}`}
                   onClick={() => onToggleHelipad(originalIdx)}
                   className={`px-4 py-3 cursor-pointer transition-colors border-l-2 ${
                     isVisible ? 'bg-green-900/20 border-green-500' : 'border-transparent hover:bg-white/5'
