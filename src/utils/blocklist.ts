@@ -1,7 +1,7 @@
 // Aeronaves que não devem aparecer no mapa, no histórico nem no PDF.
 // Match por matrícula/callsign, ignorando maiúsculas, espaços e hífens
 // (ex.: "PRPUB", "PR-PUB", "pr pub" são todos bloqueados).
-const BLOCKED_CALLSIGNS = ['PRPUB']
+const BLOCKED_CALLSIGNS = [ "PRPUB", "PSGER"]
 
 function normalize(value: string | null | undefined): string {
   return (value ?? '').toUpperCase().replace(/[\s-]/g, '')
