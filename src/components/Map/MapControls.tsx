@@ -2,6 +2,20 @@ import { useEffect, useRef } from 'react'
 import { useMap, useMapEvents } from 'react-leaflet'
 import { Aircraft } from '../../types/aircraft'
 
+const CITY_VIEW = {
+  SP: { center: [-23.5505, -46.6333] as [number, number], zoom: 10 },
+  RJ: { center: [-22.9068, -43.1729] as [number, number], zoom: 11 },
+}
+
+export function MapCityFocus({ city }: { city: 'SP' | 'RJ' }) {
+  const map = useMap()
+  useEffect(() => {
+    const { center, zoom } = CITY_VIEW[city]
+    map.flyTo(center, zoom, { animate: true, duration: 1.2 })
+  }, [city])
+  return null
+}
+
 export function MapAutoFit({ aircrafts }: { aircrafts: Aircraft[] }) {
   const map    = useMap()
   const fitted = useRef(false)

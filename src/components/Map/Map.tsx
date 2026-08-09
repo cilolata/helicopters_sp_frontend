@@ -6,8 +6,9 @@ import { Aircraft } from '../../types/aircraft'
 import { Helipad } from '../../types/helipad'
 import { AircraftMarker } from './AircraftMarker'
 import { HelipadMarker } from './HelipadMarker'
-import { MapAutoFit, MapTracker, MapClickDeselect } from './MapControls'
+import { MapAutoFit, MapTracker, MapClickDeselect, MapCityFocus } from './MapControls'
 import { SP_POLYGON } from '../../utils/spBoundary'
+import { RJ_POLYGON } from '../../utils/rjBoundary'
 
 interface Props {
   aircrafts:             Aircraft[]
@@ -16,12 +17,13 @@ interface Props {
   trackedIcao:           string | null
   trackPath:             [number, number][]
   historyPath:           [number, number][]
+  activeCity:            'SP' | 'RJ'
   onSelect:              (icao: string) => void
   onDeselect:            () => void
   onToggleHelipad:       (idx: number) => void
 }
 
-export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, trackPath, historyPath, onSelect, onDeselect, onToggleHelipad }: Props) {
+export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, trackPath, historyPath, activeCity, onSelect, onDeselect, onToggleHelipad }: Props) {
   return (
     <MapContainer
       center={[-23.5505, -46.6333]}
@@ -35,7 +37,8 @@ export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, t
       <MapAutoFit aircrafts={aircrafts} />
       <MapTracker aircrafts={aircrafts} trackedIcao={trackedIcao} />
       <MapClickDeselect onDeselect={onDeselect} />
-      {/* Contorno escuro por baixo para dar contraste */}
+      <MapCityFocus city={activeCity} />
+      {/* Contorno escuro por baixo para dar contraste — SP */}
       <Polygon
         positions={SP_POLYGON}
         pathOptions={{ color: '#000', weight: 5, opacity: 0.6, fillOpacity: 0, interactive: false }}
@@ -44,6 +47,16 @@ export function Map({ aircrafts, helipads, visibleHelipadIndices, trackedIcao, t
       <Polygon
         positions={SP_POLYGON}
         pathOptions={{ color: '#ffe600', weight: 3, opacity: 1, fillOpacity: 0, interactive: false }}
+      />
+      {/* Contorno escuro por baixo para dar contraste — RJ */}
+      <Polygon
+        positions={RJ_POLYGON}
+        pathOptions={{ color: '#000', weight: 5, opacity: 0.6, fillOpacity: 0, interactive: false }}
+      />
+      {/* Linha verde-água do perímetro RJ */}
+      <Polygon
+        positions={RJ_POLYGON}
+        pathOptions={{ color: '#00d4ff', weight: 3, opacity: 1, fillOpacity: 0, interactive: false }}
       />
       {historyPath.length > 1 && (
         <>

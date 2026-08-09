@@ -3,7 +3,7 @@ import { DailyAircraft } from '../types/aircraft'
 import { API_BASE } from '../config'
 import { isBlockedCallsign } from '../utils/blocklist'
 
-export function useDateAircrafts(date: string) {
+export function useDateAircrafts(date: string, city = 'SP') {
   const [aircrafts, setAircrafts] = useState<DailyAircraft[]>([])
   const [loading, setLoading]     = useState(false)
 
@@ -14,7 +14,7 @@ export function useDateAircrafts(date: string) {
 
     async function fetchByDate() {
       try {
-        const r = await fetch(`${API_BASE}/aircrafts/history?date=${date}`)
+        const r = await fetch(`${API_BASE}/aircrafts/history?date=${date}&city=${city}`)
         const data = await r.json() as DailyAircraft[]
         const visible = data.filter(ac => !isBlockedCallsign(ac.last_callsign))
         if (!cancelled) setAircrafts(visible)
@@ -34,7 +34,7 @@ export function useDateAircrafts(date: string) {
     const id = date === today ? setInterval(fetchByDate, 30_000) : undefined
 
     return () => { cancelled = true; if (id) clearInterval(id) }
-  }, [date])
+  }, [date, city])
 
   return { aircrafts, loading }
 }

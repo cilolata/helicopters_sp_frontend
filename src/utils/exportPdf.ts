@@ -10,22 +10,28 @@ function fmtTime(iso: string) {
   })
 }
 
-export function exportToPdf(rows: ExportRow[], date: string) {
+const CITY_LABELS: Record<string, string> = {
+  SP: 'SP',
+  RJ: 'Rio de Janeiro',
+}
+
+export function exportToPdf(rows: ExportRow[], date: string, city = 'SP') {
   rows = rows.filter(r => !isBlockedCallsign(r.last_callsign))
 
+  const cityLabel = CITY_LABELS[city] ?? city
   const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' })
 
   doc.setFontSize(13)
-  doc.text(`Helicópteros detectados — ${date}`, 14, 14)
+  doc.text(`Helicópteros detectados — ${cityLabel} — ${date}`, 14, 14)
   doc.setFontSize(9)
   doc.text(`Gerado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`, 14, 20)
 
   doc.setFontSize(7)
   doc.setTextColor(100)
   const notices = [
-    'Apenas voos dentro do perímetro do município de SP são registrados.',
+    `Apenas voos dentro do perímetro do município de ${cityLabel} são registrados.`,
     'Aeronaves da polícia são omitidas do mapa e dos registros.',
-    'Cada entrada no perímetro de SP é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.',
+    `Cada entrada no perímetro de ${cityLabel} é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.`,
   ]
   notices.forEach((txt, i) => doc.text(txt, 14, 27 + i * 4.5))
   doc.setTextColor(0)
@@ -53,5 +59,5 @@ export function exportToPdf(rows: ExportRow[], date: string) {
     ]),
   })
 
-  doc.save(`helicopteros-${date}.pdf`)
+  doc.save(`helicopteros-${city.toLowerCase()}-${date}.pdf`)
 }

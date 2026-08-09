@@ -17,34 +17,43 @@ interface Props {
   onSelect:              (icao: string) => void
   onShowHistory:         (icao: string) => void
   onToggleHelipad:       (idx: number) => void
+  onCityChange:          (city: 'SP' | 'RJ') => void
 }
 
-type Tab = 'live' | 'today' | 'helipads'
+type Tab = 'live' | 'today' | 'rj' | 'helipads'
 
 function todayStr() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' })
 }
 
-export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad }: Props) {
+export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad, onCityChange }: Props) {
   const [tab, setTab] = useState<Tab>('live')
+
+  function changeTab(t: Tab) {
+    setTab(t)
+    onCityChange(t === 'rj' ? 'RJ' : 'SP')
+  }
   const [date, setDate] = useState(todayStr)
+  const [dateRJ, setDateRJ] = useState(todayStr)
   const [helipadSearch, setHelipadSearch] = useState('')
   const [exporting, setExporting] = useState(false)
+  const [exportingRJ, setExportingRJ] = useState(false)
 
-  async function handleExportPdf() {
-    setExporting(true)
+  async function handleExportPdf(city: string, dateStr: string, setExp: (v: boolean) => void) {
+    setExp(true)
     try {
-      const res  = await fetch(`${API_BASE}/aircrafts/export?date=${date}`)
+      const res  = await fetch(`${API_BASE}/aircrafts/export?date=${dateStr}&city=${city}`)
       const rows = await res.json() as ExportRow[]
-      exportToPdf(rows, date)
+      exportToPdf(rows, dateStr, city)
     } catch {
       // silently ignore — user can retry
     } finally {
-      setExporting(false)
+      setExp(false)
     }
   }
 
-  const { aircrafts: dateList, loading } = useDateAircrafts(date)
+  const { aircrafts: dateList, loading } = useDateAircrafts(date, 'SP')
+  const { aircrafts: dateListRJ, loading: loadingRJ } = useDateAircrafts(dateRJ, 'RJ')
 
   const allHelipads = [...helipads].sort((a, b) => b.pousos_permitidos - a.pousos_permitidos)
 
@@ -61,8 +70,9 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
 
   const tabs: { id: Tab; label: string; active: string }[] = [
     { id: 'live',     label: `🚁 ${aircrafts.length} ao vivo`,  active: 'border-red-500' },
-    { id: 'today',    label: `📋 histórico`,                    active: 'border-yellow-500' },
-    { id: 'helipads', label: `H ${helipads.length}`, active: 'border-green-500' },
+    { id: 'today',    label: `📋 SP`,                           active: 'border-yellow-500' },
+    { id: 'rj',       label: `📋 RJ`,                           active: 'border-cyan-400' },
+    { id: 'helipads', label: `H ${helipads.length}`,            active: 'border-green-500' },
   ]
 
   return (
@@ -76,7 +86,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
           {tabs.map(t => (
             <button
               key={t.id}
-              onClick={() => setTab(t.id)}
+              onClick={() => changeTab(t.id)}
               className={`flex-1 pb-2 font-medium transition-colors border-b-2 ${
                 tab === t.id ? `${t.active} text-white` : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
@@ -87,7 +97,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
         </div>
       </header>
 
-      {/* Date picker — only shown on histórico tab */}
+      {/* Date picker — shown on histórico SP tab */}
       {tab === 'today' && (
         <div className="px-3 py-2 bg-gray-950 border-b border-white/10 flex flex-col gap-2">
           <div className="flex items-center gap-2">
@@ -104,7 +114,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
             </span>
           </div>
           <button
-            onClick={handleExportPdf}
+            onClick={() => handleExportPdf('SP', date, setExporting)}
             disabled={exporting}
             className="w-full text-center text-xs bg-yellow-600/20 hover:bg-yellow-600/40 text-yellow-400
                        border border-yellow-600/40 rounded px-2 py-1.5 transition-colors
@@ -120,6 +130,43 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
           </p>
           <p className="text-[10px] text-white/70 leading-snug">
             ℹ Cada entrada no perímetro de SP é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.
+          </p>
+        </div>
+      )}
+
+      {/* Date picker — shown on histórico RJ tab */}
+      {tab === 'rj' && (
+        <div className="px-3 py-2 bg-gray-950 border-b border-white/10 flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <input
+              type="date"
+              value={dateRJ}
+              max={todayStr()}
+              onChange={e => setDateRJ(e.target.value)}
+              className="flex-1 bg-gray-800 text-white text-xs rounded px-2 py-1.5 border border-white/10
+                         focus:outline-none focus:border-cyan-400 cursor-pointer"
+            />
+            <span className="text-xs text-gray-500 shrink-0 tabular-nums">
+              {loadingRJ ? '…' : `${dateListRJ.length} voos`}
+            </span>
+          </div>
+          <button
+            onClick={() => handleExportPdf('RJ', dateRJ, setExportingRJ)}
+            disabled={exportingRJ}
+            className="w-full text-center text-xs bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-400
+                       border border-cyan-600/40 rounded px-2 py-1.5 transition-colors
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {exportingRJ ? 'Gerando PDF…' : '⬇ Exportar PDF'}
+          </button>
+          <p className="text-[10px] text-white/70 leading-snug">
+            ⚠ Apenas voos dentro do perímetro do município do Rio de Janeiro são registrados no histórico.
+          </p>
+          <p className="text-[10px] text-white/70 leading-snug">
+            🚔 Aeronaves da polícia são omitidas do mapa e dos registros.
+          </p>
+          <p className="text-[10px] text-white/70 leading-snug">
+            ℹ Cada entrada no perímetro do RJ é contabilizada como um sobrevoo independente, mesmo que seja da mesma aeronave.
           </p>
         </div>
       )}
@@ -158,7 +205,7 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
           </>
         )}
 
-        {/* HISTÓRICO */}
+        {/* HISTÓRICO SP */}
         {tab === 'today' && (
           <>
             {!loading && dateList.length === 0 && (
@@ -172,6 +219,36 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
                 className="flex items-center gap-3 px-4 py-3 border-l-2 border-transparent"
               >
                 <FaHelicopter size={16} className="text-yellow-500 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-sm truncate">
+                    {ac.last_callsign ?? ac.icao_hex}
+                    {ac.last_callsign && (
+                      <span className="ml-1.5 text-xs text-gray-500 font-normal">{ac.icao_hex}</span>
+                    )}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {fmtTime(ac.first_seen)} → {fmtTime(ac.last_seen)}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </>
+        )}
+
+        {/* HISTÓRICO RJ */}
+        {tab === 'rj' && (
+          <>
+            {!loadingRJ && dateListRJ.length === 0 && (
+              <li className="px-4 py-8 text-center text-sm text-gray-500">
+                Nenhum registro nesta data.
+              </li>
+            )}
+            {dateListRJ.map(ac => (
+              <li
+                key={`rj-${ac.icao_hex}`}
+                className="flex items-center gap-3 px-4 py-3 border-l-2 border-transparent"
+              >
+                <FaHelicopter size={16} className="text-cyan-400 shrink-0" />
                 <div className="min-w-0 flex-1">
                   <p className="font-medium text-sm truncate">
                     {ac.last_callsign ?? ac.icao_hex}

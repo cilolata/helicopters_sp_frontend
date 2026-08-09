@@ -16,6 +16,7 @@ export default function App() {
   const [historyIcao, setHistoryIcao] = useState<string | null>(null)
   const historyPath = useHistoryRoute(historyIcao)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [activeCity, setActiveCity] = useState<'SP' | 'RJ'>('SP')
   const [visibleHelipadIndices, setVisibleHelipadIndices] = useState<Set<number>>(new Set())
 
   function toggleHelipad(idx: number) {
@@ -69,6 +70,7 @@ export default function App() {
           trackedIcao={trackedIcao}
           trackPath={trackPath}
           historyPath={historyPath}
+          activeCity={activeCity}
           onSelect={toggle}
           onDeselect={clear}
           onToggleHelipad={toggleHelipad}
@@ -97,6 +99,7 @@ export default function App() {
           onSelect={toggle}
           onShowHistory={handleShowHistory}
           onToggleHelipad={toggleHelipad}
+          onCityChange={setActiveCity}
         />
       </div>
     </div>
