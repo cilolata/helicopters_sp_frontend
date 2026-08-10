@@ -13,6 +13,7 @@ export interface Aircraft {
   on_ground:    number
   captured_at:  string
   type:         'helicopter'
+  city?:        'SP' | 'RJ'
 }
 
 export interface DailyAircraft {

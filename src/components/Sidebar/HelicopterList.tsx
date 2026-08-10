@@ -20,19 +20,22 @@ interface Props {
   onCityChange:          (city: 'SP' | 'RJ') => void
 }
 
-type Tab = 'live' | 'today' | 'rj' | 'helipads'
+type Tab = 'live-sp' | 'live-rj' | 'today' | 'rj' | 'helipads'
 
 function todayStr() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' })
 }
 
 export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, visibleHelipadIndices, onSelect, onShowHistory, onToggleHelipad, onCityChange }: Props) {
-  const [tab, setTab] = useState<Tab>('live')
+  const [tab, setTab] = useState<Tab>('live-sp')
 
   function changeTab(t: Tab) {
     setTab(t)
-    onCityChange(t === 'rj' ? 'RJ' : 'SP')
+    onCityChange(t === 'rj' || t === 'live-rj' ? 'RJ' : 'SP')
   }
+
+  const spLive = aircrafts.filter(a => !a.city || a.city === 'SP')
+  const rjLive = aircrafts.filter(a => a.city === 'RJ')
   const [date, setDate] = useState(todayStr)
   const [dateRJ, setDateRJ] = useState(todayStr)
   const [helipadSearch, setHelipadSearch] = useState('')
@@ -69,10 +72,11 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
   }
 
   const tabs: { id: Tab; label: string; active: string }[] = [
-    { id: 'live',     label: `🚁 ${aircrafts.length} ao vivo`,  active: 'border-red-500' },
-    { id: 'today',    label: `📋 SP`,                           active: 'border-yellow-500' },
-    { id: 'rj',       label: `📋 RJ`,                           active: 'border-cyan-400' },
-    { id: 'helipads', label: `H ${helipads.length}`,            active: 'border-green-500' },
+    { id: 'live-sp',  label: `🚁 SP${spLive.length > 0 ? ` · ${spLive.length}` : ''}`,  active: 'border-red-500' },
+    { id: 'live-rj',  label: `🚁 RJ${rjLive.length > 0 ? ` · ${rjLive.length}` : ''}`,  active: 'border-cyan-400' },
+    { id: 'today',    label: `📋 SP`,                                                     active: 'border-yellow-500' },
+    { id: 'rj',       label: `📋 RJ`,                                                     active: 'border-cyan-300' },
+    { id: 'helipads', label: `H ${helipads.length}`,                                      active: 'border-green-500' },
   ]
 
   return (
@@ -173,23 +177,55 @@ export function HelicopterList({ aircrafts, helipads, trackedIcao, historyIcao, 
 
       <ul className="overflow-y-auto flex-1 divide-y divide-white/5">
 
-        {/* AO VIVO */}
-        {tab === 'live' && (
+        {/* AO VIVO SP */}
+        {tab === 'live-sp' && (
           <>
-            {aircrafts.length === 0 && (
+            {spLive.length === 0 && (
               <li className="px-4 py-8 text-center text-sm text-gray-500">Aguardando dados...</li>
             )}
-            {aircrafts.map(ac => {
+            {spLive.map(ac => {
               const isTracked = trackedIcao === ac.icao_hex
               return (
                 <li
-                  key={`live-${ac.icao_hex}`}
+                  key={`live-sp-${ac.icao_hex}`}
                   onClick={() => onSelect(ac.icao_hex)}
                   className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors border-l-2 ${
                     isTracked ? 'bg-blue-700/30 border-blue-400' : 'hover:bg-white/5 border-transparent'
                   }`}
                 >
                   <FaHelicopter size={20} className={isTracked ? 'text-blue-400 shrink-0' : 'text-red-500 shrink-0'} />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-sm truncate">{ac.callsign ?? ac.icao_hex}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      <span>{fmt(ac.altitude, 'ft')}</span>
+                      <span className="mx-1">·</span>
+                      <span>{fmt(ac.ground_speed, 'kt')}</span>
+                    </p>
+                  </div>
+                  {isTracked && <span className="text-xs text-blue-400 shrink-0">seguindo</span>}
+                </li>
+              )
+            })}
+          </>
+        )}
+
+        {/* AO VIVO RJ */}
+        {tab === 'live-rj' && (
+          <>
+            {rjLive.length === 0 && (
+              <li className="px-4 py-8 text-center text-sm text-gray-500">Aguardando dados...</li>
+            )}
+            {rjLive.map(ac => {
+              const isTracked = trackedIcao === ac.icao_hex
+              return (
+                <li
+                  key={`live-rj-${ac.icao_hex}`}
+                  onClick={() => onSelect(ac.icao_hex)}
+                  className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors border-l-2 ${
+                    isTracked ? 'bg-blue-700/30 border-blue-400' : 'hover:bg-white/5 border-transparent'
+                  }`}
+                >
+                  <FaHelicopter size={20} className={isTracked ? 'text-blue-400 shrink-0' : 'text-cyan-400 shrink-0'} />
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-sm truncate">{ac.callsign ?? ac.icao_hex}</p>
                     <p className="text-xs text-gray-400 mt-0.5">

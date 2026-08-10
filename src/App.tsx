@@ -19,6 +19,8 @@ export default function App() {
   const [activeCity, setActiveCity] = useState<'SP' | 'RJ'>('SP')
   const [visibleHelipadIndices, setVisibleHelipadIndices] = useState<Set<number>>(new Set())
 
+  const mapAircrafts = aircrafts.filter(a => !a.city || a.city === activeCity)
+
   function toggleHelipad(idx: number) {
     setVisibleHelipadIndices(prev => {
       const next = new Set(prev)
@@ -64,7 +66,7 @@ export default function App() {
         </button>
 
         <Map
-          aircrafts={aircrafts}
+          aircrafts={mapAircrafts}
           helipads={helipads}
           visibleHelipadIndices={visibleHelipadIndices}
           trackedIcao={trackedIcao}
